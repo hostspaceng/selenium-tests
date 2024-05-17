@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - cicd-slack-integration
 
 jobs:
   build-and-push:
