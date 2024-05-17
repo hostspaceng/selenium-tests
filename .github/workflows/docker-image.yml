@@ -32,6 +32,3 @@ jobs:
           tags: |
             ghcr.io/${{ github.repository }}:latest
             ghcr.io/${{ github.repository }}:${{ github.sha }}
-
-      - name: Image digest
-        run: echo "Image digest: ${{ steps.docker_build.outputs.digest }}"
