@@ -6,7 +6,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 import logging
+from dotenv import load_dotenv
 
+load_dotenv()
 logging.basicConfig(level=logging.INFO)
 
 email = os.getenv("EMAIL")
@@ -40,13 +42,13 @@ try:
     submit_button = driver.find_element(by=By.CLASS_NAME, value="LoginCredentialsForm__submit")
     
     email_input.send_keys(email)
-    password_input.send_keys(password)
+    # password_input.send_keys(password)
     submit_button.click()
     
     WebDriverWait(driver, 10).until(EC.title_contains("Patients | Helium Health"))
     logging.info("Login successful - Redirected to patients.")
 except Exception as e:
-    error_message = "Login Unsuccessful - {}".format(str(e))
+    error_message = f"Login Unsuccessful - {url}"
     logging.error(error_message)
     send_slack_notification(error_message)
 finally:
