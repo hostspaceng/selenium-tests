@@ -17,17 +17,11 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Google Chrome
-RUN CHROME_VERSION=125.0.6422.60
-RUN wget -q https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_${CHROME_VERSION}_amd64.deb
+
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
 RUN apt-get -y update
-RUN apt-get install -y ./google-chrome-stable_${CHROME_VERSION}_amd64.deb
-
-
-# Install ChromeDriver
-RUN CHROMEDRIVER_VERSION=125.0.6422.60 && \
-    wget -O /tmp/chromedriver.zip https://storage.googleapis.com/chrome-for-testing-public/$CHROMEDRIVER_VERSION/linux64/chrome-linux64.zip   && \
-    unzip /tmp/chromedriver.zip -d /usr/local/bin/ && \
-    rm /tmp/chromedriver.zip
+RUN apt-get install -y google-chrome-stable
 
 # Set display environment variable
 ENV DISPLAY=:99
@@ -37,4 +31,4 @@ RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 # Command to run the script
-CMD ["python", "./login-test.py"]
+CMD ["python", "./headless.py"]
