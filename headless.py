@@ -19,6 +19,8 @@ password = os.getenv("PASSWORD")
 url = os.getenv("URL")
 slack_webhook_url = os.getenv("SLACK_WEBHOOK_URL")
 
+print(f'email->{email}, password->{password}, url->{url} slack_webhook_url->{slack_webhook_url}')
+
 # Install the correct version of ChromeDriver
 chromedriver_autoinstaller.install()
 
@@ -29,8 +31,17 @@ options.add_argument('--no-sandbox')
 options.add_argument('--disable-dev-shm-usage')
 options.add_argument('--remote-debugging-port=9222')
 options.add_argument('--window-size=1920,1080')
-options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36')
 options.add_argument('--disable-software-rasterizer')
+
+# driver = webdriver.Chrome(options=options)
+
+# user_agent= driver.execute_script("return navigator.userAgent")
+# print(f'user_agent->{user_agent}')
+# options.add_argument(f'--user-agent={user_agent}')
+# options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36')
+options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/124.0.6367.209 Safari/537.36')
+
+print(options.arguments)
 
 driver = webdriver.Chrome(options=options)
 
