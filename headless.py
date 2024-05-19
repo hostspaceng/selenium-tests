@@ -38,8 +38,8 @@ options.add_argument('--disable-software-rasterizer')
 # user_agent= driver.execute_script("return navigator.userAgent")
 # print(f'user_agent->{user_agent}')
 # options.add_argument(f'--user-agent={user_agent}')
-# options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36')
-options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/124.0.6367.209 Safari/537.36')
+options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36')
+# options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/124.0.6367.209 Safari/537.36')
 
 print(options.arguments)
 
