@@ -35,6 +35,10 @@ options.add_argument('--disable-software-rasterizer')
 options.add_argument('--enable-logging')
 options.add_argument('--v=1')
 options.add_argument('--log-level=0')
+chrome_prefs = {}
+options.experimental_options["prefs"] = chrome_prefs
+chrome_prefs["profile.default_content_settings"] = {"images": 2}
+
 
 # driver = webdriver.Chrome(options=options)
 
