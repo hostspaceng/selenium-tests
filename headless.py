@@ -48,6 +48,7 @@ def send_slack_notification(message):
         logging.error("Failed to send Slack notification - {}".format(str(e)))
 
 try:
+    logging.info("Loading login page.")
     WebDriverWait(driver, 10).until(EC.title_is("Sign in | Helium Health"))
     logging.info("Login page loaded successfully.")
     
