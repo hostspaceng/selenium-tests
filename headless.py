@@ -1,4 +1,5 @@
 import os
+import requests
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -16,6 +17,7 @@ logging.basicConfig(level=logging.INFO)
 email = os.getenv("EMAIL")
 password = os.getenv("PASSWORD")
 url = os.getenv("URL")
+slack_webhook_url = os.getenv("SLACK_WEBHOOK_URL")
 
 
 options = Options()
@@ -35,6 +37,16 @@ driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), opti
 
 # driver = webdriver.Chrome()
 driver.get(url)
+
+def send_slack_notification(message):
+    payload = {
+        "text": message
+    }
+    try:
+        response = requests.post(slack_webhook_url, json=payload)
+        response.raise_for_status()
+    except requests.exceptions.RequestException as e:
+        logging.error("Failed to send Slack notification - {}".format(str(e)))
 
 try:
     WebDriverWait(driver, 10).until(EC.title_is("Sign in | Helium Health"))
@@ -56,5 +68,6 @@ try:
     logging.info("Login successful - Redirected to patients.")
 except Exception as e:
     logging.error("Login Unsuccessful - {}".format(str(e)))
+    send_slack_notification(f"Login Unsuccessful - {url}")
 finally:
     driver.quit()
