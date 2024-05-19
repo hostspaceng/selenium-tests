@@ -1,11 +1,11 @@
 import os
 import requests
+import chromedriver_autoinstaller
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 import logging
 from dotenv import load_dotenv
@@ -19,21 +19,20 @@ password = os.getenv("PASSWORD")
 url = os.getenv("URL")
 slack_webhook_url = os.getenv("SLACK_WEBHOOK_URL")
 
+# Install the correct version of ChromeDriver
+chromedriver_autoinstaller.install()
 
 options = Options()
+options.add_argument('--headless')
+options.add_argument('--disable-gpu')
+options.add_argument('--no-sandbox')
+options.add_argument('--disable-dev-shm-usage')
+options.add_argument('--remote-debugging-port=9222')
+options.add_argument('--window-size=1920,1080')
+options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36')
+options.add_argument('--disable-software-rasterizer')
 
-options.add_argument('--headless=new')
-options.add_argument('--window-size=1920,1080')  # Adjust as necessary
-options.add_argument('--enable-logging')
-options.add_argument('--v=1')
-
-options.add_argument('--disable-gpu')  # GPU is not used in headless mode
-options.add_argument('--no-sandbox')  # Bypass OS security model, necessary for Docker
-options.add_argument('--disable-dev-shm-usage')  # Overcome limited resource problems
-options.add_argument('--remote-debugging-port=9222')  # Remote debugging
-options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36")
-
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+driver = webdriver.Chrome(options=options)
 
 # driver = webdriver.Chrome()
 driver.get(url)
