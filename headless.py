@@ -20,7 +20,7 @@ url = os.getenv("URL")
 
 options = Options()
 
-options.add_argument('--headless=new')
+# options.add_argument('--headless=new')
 options.add_argument('--window-size=1920,1080')  # Adjust as necessary
 options.add_argument('--enable-logging')
 options.add_argument('--v=1')
