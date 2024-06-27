@@ -7,6 +7,7 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 import logging
+import time 
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -20,7 +21,7 @@ url = os.getenv("URL")
 
 options = Options()
 
-# options.add_argument('--headless=new')
+options.add_argument('--headless=new')
 options.add_argument('--window-size=1920,1080')  # Adjust as necessary
 options.add_argument('--enable-logging')
 options.add_argument('--v=1')
@@ -32,6 +33,7 @@ options.add_argument('--remote-debugging-port=9222')  # Remote debugging
 options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36")
 
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+time.sleep(150)
 
 # driver = webdriver.Chrome()
 driver.get(url)
